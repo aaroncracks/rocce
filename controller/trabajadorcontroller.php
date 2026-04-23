@@ -1,5 +1,6 @@
 <?php
 require_once ('model/trabajadormodel.php');
+require_once ('model/correomodel.php');
 
 class trabajador_controller{
     
@@ -14,6 +15,7 @@ class trabajador_controller{
         return $datos;
     }
     function mostrartrabajador(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_trabajadores();
 
         //Llamada a la vista
@@ -33,8 +35,19 @@ class trabajador_controller{
     }
 
     function alta($nombre, $correo, $contraseña, $puesto){
-        $datos=$this->model->set_trabajadores($nombre, $correo, $contraseña, $puesto);
-        
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } else {
+            $ruta = null;
+        }
+        $datos=$this->model->set_trabajadores($nombre, $correo, $contraseña, $puesto, $ruta);
+        $correoModel = new correo_model();
+        $correoModel->enviarcorreoalta($correo);
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewtrabajador&msg=creado");
 

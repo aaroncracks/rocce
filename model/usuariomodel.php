@@ -1,4 +1,6 @@
 <?php
+
+
 class usuario_model{
     private $db;
     private $usuarios;
@@ -25,33 +27,68 @@ class usuario_model{
     }
 
     public function get_usuarios2(){
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña FROM usuarios u
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM usuarios u
         LEFT JOIN trabajadores t ON u.id = t.usuario_id
         LEFT JOIN investigadores i ON u.id = i.usuario_id
         WHERE t.usuario_id IS NULL
-        AND i.usuario_id IS NULL
-        LIMIT 18446744073709551615 OFFSET 1;");
+        AND i.usuario_id IS NULL")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "SELECT id, nombre, correo, contraseña, imagen FROM usuarios u
+        LEFT JOIN trabajadores t ON u.id = t.usuario_id
+        LEFT JOIN investigadores i ON u.id = i.usuario_id
+        WHERE t.usuario_id IS NULL
+        AND i.usuario_id IS NULL ";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " AND nombre LIKE '$buscar%' ";
+        }
+        $sql .= "LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
+        
         while($filas=$consulta->fetch_assoc()){
             $this->usuarios[]=$filas;
         }
         return $this->usuarios;
+    }
+
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM usuarios u
+        LEFT JOIN trabajadores t ON u.id = t.usuario_id
+        LEFT JOIN investigadores i ON u.id = i.usuario_id
+        WHERE t.usuario_id IS NULL
+        AND i.usuario_id IS NULL")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+
+        return $totalPaginas;
     }
 
     public function get_usuarios3(){
         $id = $_GET["id"];
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña FROM usuarios WHERE id='$id' LIMIT 1;");
+        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, imagen FROM usuarios WHERE id='$id' LIMIT 1;");
         while($filas=$consulta->fetch_assoc()){
             $this->usuarios[]=$filas;
         }
         return $this->usuarios;
     }
 
-    public function set_usuario($correo, $nombre, $Contraseña){
+    public function set_usuario($correo, $nombre, $Contraseña, $ruta){
 
         
         try{
-            $Sentencia="INSERT usuarios (nombre, correo, contraseña) ";
-            $Sentencia.="VALUES ('$nombre', '$correo', '$Contraseña')";
+            $Sentencia="INSERT usuarios (nombre, correo, contraseña, imagen) ";
+            $Sentencia.="VALUES ('$nombre', '$correo', '$Contraseña', '$ruta')";
             $consulta=$this->db->query($Sentencia);
         } catch(Exception $g){
             echo "Error"; /*E-Mail es Unique y debe tener un @*/

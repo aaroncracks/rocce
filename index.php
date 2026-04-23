@@ -14,6 +14,8 @@ require_once("controller/investigadorcontroller.php");
 require_once("controller/usuariocontroller.php");
 require_once("controller/proyectocontroller.php");
 require_once("controller/entradacontroller.php");
+require_once("controller/comentariocontroller.php");
+require_once("controller/reseñacontroller.php");
 
     if(isset($_SESSION["usuario"])){
         if($_SESSION["usuario"] == "Admin"){
@@ -25,8 +27,6 @@ require_once("controller/entradacontroller.php");
         $accion = $_GET["accion"] ?? "home";  
     }
 
-         
-    
     
 
     switch($accion){
@@ -53,6 +53,11 @@ require_once("controller/entradacontroller.php");
         case 'mostraractividadclient':
             $controller = new actividad_controller();
             $controller->mostraractividadclient();
+            break;
+        
+        case 'mostrarlugarclient':
+            $controller = new lugar_controller();
+            $controller->mostrarlugarclient();
             break;
 
         case 'mostrariniciarsesion':
@@ -95,6 +100,11 @@ require_once("controller/entradacontroller.php");
             $controller->mostrarusuario();
             break;
 
+        case 'viewusuarioun':
+            $controller = new usuario_controller();
+            $controller->mostrarunusuario();
+            break;
+        
         case 'viewmodusuario':
             $controller = new usuario_controller();
             $controller->mostrarmodusuario();
@@ -175,6 +185,12 @@ require_once("controller/entradacontroller.php");
             $controller = new entrada_controller();
             $controller->mostrarentrada();
             break;
+
+        case 'viewentradaclient':
+            $controller = new entrada_controller();
+            $controller->mostrarentradaclient();
+            break;
+
         case 'viewaltaentrada':
             $controller = new entrada_controller();
             $controller->mostraraltaentrada();
@@ -473,9 +489,13 @@ require_once("controller/entradacontroller.php");
 
         // ACTIVIDADES CRUD
         case 'viewactividad':
-            
             $controller = new actividad_controller();
             $controller->mostraractividad();
+            break;
+
+        case 'viewactividadun':
+            $controller = new actividad_controller();
+            $controller->mostrarunactividad();
             break;
 
         case 'viewaltaactividad':
@@ -519,6 +539,52 @@ require_once("controller/entradacontroller.php");
             $id=$_GET["id"];
             $controller = new actividad_controller();
             $controller->del($id);
+            break;
+        
+        // RESEÑAS CRUD
+        case 'viewreseña':
+            $controller = new reseña_controller();
+            $controller->mostrarreseña();
+            break;
+
+        case 'viewaltareseña':
+            $controller = new reseña_controller();
+            $controller->mostraraltareseña();
+            break;
+
+        case 'viewmodreseña':
+            $controller = new reseña_controller();
+            $controller->mostrarmodreseña();
+            break;
+        
+        case 'altareseña':
+            $descripcion=$_POST["Descripcion"];
+            $controller = new reseña_controller();
+            $controller->alta($descripcion);
+            break;
+        
+        case 'modreseña':
+            $descripcion=$_POST["Descripcion"];
+            $controller = new reseña_controller();
+            $controller->mod($descripcion);
+            break;
+        
+        case 'delreseña':
+            $id=$_SESSION["usuario"];
+            $controller = new reseña_controller();
+            $controller->del($id);
+            break;
+
+        case 'viewcomentario':
+            $controller = new comentario_controller();
+            $controller->mostrarcomentario();
+            break;
+
+        case 'crearcomentario':
+            $texto = $_POST["comentario"];
+            $actividad_id = $_POST["actividad_id"];
+            $controller = new comentario_controller();
+            $controller->crear($texto, $actividad_id);
             break;
 
     }

@@ -1,5 +1,6 @@
 <?php
 require_once ('model/usuariomodel.php');
+require_once ('model/correomodel.php');
 
 class usuario_controller{
 
@@ -21,6 +22,7 @@ class usuario_controller{
                 if($dato["correo"]==$correo and $dato["contraseña"]==$Contraseña){
                     $Sesion=1;
                 } 
+
             }
 
         }catch(exception $f){
@@ -47,7 +49,19 @@ class usuario_controller{
         header("Refresh:1, url=index.php");
     }
 
+
+
     function alta($nombre, $correo, $Contraseña){
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } else {
+            $ruta = null;
+        }
         $daralta = true;
         $model = new usuario_model();
         $datos=$model->get_usuarios();
@@ -58,12 +72,18 @@ class usuario_controller{
             }
         if($daralta){
             
-            $datos=$model->set_usuario($correo, $nombre, $Contraseña);
+            $datos=$model->set_usuario($correo, $nombre, $Contraseña, $ruta);
+            $correoModel = new correo_model();
+            $correoModel->enviarcorreoalta($correo);
+                
             if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]=="Admin"){
                 header("Refresh:1, url=index.php?accion=viewusuario&msg=creado");
             }else{
+                
                 header("Refresh:1, url=index.php?msg=creado");
             }
+            
+            
             
         }else{
             header("Refresh:1, url=index.php?accion=mostraralta");
@@ -73,6 +93,7 @@ class usuario_controller{
 
     function mostrarusuario(){
         $model = new usuario_model();
+        $total=$model->get_total();
         $datos=$model->get_usuarios2();
 
         //Llamada a la vista
@@ -84,13 +105,22 @@ class usuario_controller{
         $datos = $model->get_usuarios3();
         require_once("views/viewmodusuario.php");
     }
+    function mostrarunusuario(){
+        $model = new usuario_model();
+        $datos = $model->get_usuarios3();
+        require_once("views/viewmostrarusuarioun.php");
+    }
 
     function mod($id, $nombre, $correo, $contraseña){
         $model = new usuario_model();
         $datos=$model->mod_usuario($id, $nombre, $correo, $contraseña);
         
         //Llamada a la vista
-        header("Refresh:1, url=index.php?accion=viewusuario&msg=modificado");
+        if($_SESSION["usuario"]=="Admin"){
+            header("Refresh:1, url=index.php?accion=viewusuario&msg=modificado");
+        }else{
+            header("Refresh:1, url=index.php?accion=viewusuarioun&id=$id&msg=modificado");
+        }
 
     }
 

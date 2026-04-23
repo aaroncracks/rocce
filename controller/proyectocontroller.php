@@ -14,6 +14,7 @@ class proyecto_controller{
         return $datos;
     }
     function mostrarproyecto(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_proyectos();
 
         //Llamada a la vista

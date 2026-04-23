@@ -9,11 +9,37 @@ class mineral_model{
     }
     
     public function get_minerales(){
-        $consulta=$this->db->query("select * from minerales;");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM minerales")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql="select * from minerales ";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE nombre LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->minerales[]=$filas;
         }
         return $this->minerales;
+    }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM minerales")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+
+        return $totalPaginas;
     }
 
     public function get_minerales1(){
@@ -25,11 +51,11 @@ class mineral_model{
         return $this->minerales;
     }
 
-    public function set_mineral($nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id){
+    public function set_mineral($nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id, $ruta){
         
         try{
-            $Sentencia="INSERT minerales (nombre, formula, clase, sistema_cristalino, habito, lugar_id) ";
-            $Sentencia.="VALUES ('$nombre', '$formula', '$clase', '$sistema_cristalino', '$habito', '$lugar_id')";
+            $Sentencia="INSERT minerales (nombre, formula, clase, sistema_cristalino, habito, lugar_id, imagen) ";
+            $Sentencia.="VALUES ('$nombre', '$formula', '$clase', '$sistema_cristalino', '$habito', '$lugar_id', '$ruta')";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

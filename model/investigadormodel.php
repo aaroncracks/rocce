@@ -18,21 +18,45 @@ class investigador_model{
         return $this->investigadores;
     }
     public function get_investigadores(){
-        
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, especialidad, usuario_id From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id;");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM investigadores")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "SELECT id, nombre, correo, contraseña, especialidad, usuario_id From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE nombre LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->investigadores[]=$filas;
         }
         return $this->investigadores;
     }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+         $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM investigadores")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        return $totalPaginas;
+    }
 
-    public function set_investigadores($nombre, $correo, $contraseña, $especialidad){
+    public function set_investigadores($nombre, $correo, $contraseña, $especialidad, $ruta){
         try{
             $Sentencia="INSERT usuarios (nombre, correo, contraseña) ";
                 $Sentencia.="VALUES ('$nombre', '$correo', '$contraseña')";
                 $consulta=$this->db->query($Sentencia);
-                $Sentencia="INSERT investigadores (usuario_id, especialidad) ";
-                $Sentencia.="VALUES (LAST_INSERT_ID(), '$especialidad')";
+                $Sentencia="INSERT investigadores (usuario_id, especialidad, imagen) ";
+                $Sentencia.="VALUES (LAST_INSERT_ID(), '$especialidad', '$ruta')";
                 $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

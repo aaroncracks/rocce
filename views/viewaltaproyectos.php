@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>TRAVELER - Free Travel Website Template</title>
+    <title>PARQUE NACIONAL ROCCE</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -31,7 +31,7 @@
         if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]=="Admin"){
     ?>
     <a href="index.php" class="btn btn-primary w-40 left--1-m">Volver</a>
-    <h2 class="mb-1 mt-5 text-center">Alta Usuario</h2>
+    <h2 class="mb-1 mt-5 text-center">Alta Proyecto</h2>
     <?php 
         }else{   
     ?>
@@ -57,16 +57,19 @@
             <div class="text-center mb-3 pb-3">
                 <form action="index.php?accion=altaproyecto"  method="post">
                     <div class="control-group">
+                        <label for="">TITULO</label>
                         <input type="text" class="form-control p-4" name="titulo" placeholder="titulo"
                             required="required" data-validation-required-message="Por favor escriba el titulo" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
+                        <label for="">AUTOR</label>
                         <input type="text" class="form-control p-4" name="autor" placeholder="autor"
                             required="required" data-validation-required-message="Por favor escriba el autor" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
+                        <label for="">JUSTIFICACION</label>
                         <textarea class="form-control py-3 px-4" rows="40" name="justificacion" placeholder="justificacion"
                             required="required"
                             data-validation-required-message="Por favor escriba una justificacion"></textarea>

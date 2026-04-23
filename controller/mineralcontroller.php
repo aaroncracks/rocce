@@ -13,6 +13,7 @@ class mineral_controller{
 
 
     function mostrarmineral(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_minerales();
         
         //Llamada a la vista
@@ -38,7 +39,17 @@ class mineral_controller{
     }
 
     function alta($nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id){
-        $datos=$this->model->set_mineral($nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id);
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } else {
+            $ruta = null;
+        }
+        $datos=$this->model->set_mineral($nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewmineral&msg=creado");

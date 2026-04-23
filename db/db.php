@@ -185,6 +185,22 @@ class Conectar{
             $Sentencia.="VALUES ('Admin', 'adminparque@gmail.com', '1234')";
             mysqli_query($c,$Sentencia);
 
+            $Sentencia="ALTER TABLE Animales ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Plantas ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Lugares ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Usuarios ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Investigadores ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Trabajadores ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Actividades ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Minerales ADD imagen VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
             echo "<h2 style='color:red;text-align:center;margin-top:50px'>
                      BASE DE DATOS CREADA CON EXITO
                 </h2>";

@@ -4,8 +4,6 @@
                 <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
                         <p><i class="fa fa-envelope mr-2"></i>Trabajador</p>
-                        <p class="text-body px-3">|</p>
-                        <p><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</p>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
@@ -46,8 +44,7 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.php?accion=home" class="nav-item nav-link active">Home</a>
-                        <a href="index.php?accion=about" class="nav-item nav-link">Sobre nosotros</a>
-                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link border-right">Actividades</a>
+                        <a href="index.php?accion=viewactividad" class="nav-item nav-link border-right">Actividades</a>
                         <a href="index.php?accion=cerrarsesion" class="nav-item nav-link">Cerrar Sesion</a>
                     </div>
                 </div>

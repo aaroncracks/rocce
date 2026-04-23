@@ -1,5 +1,6 @@
 <?php
 require_once ('model/investigadormodel.php');
+require_once ('model/correomodel.php');
 
 class investigador_controller{
     
@@ -14,6 +15,7 @@ class investigador_controller{
         return $datos;
     }
     function mostrarinvestigador(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_investigadores();
 
         //Llamada a la vista
@@ -34,8 +36,19 @@ class investigador_controller{
     }
 
     function alta($nombre, $correo, $contraseña, $especialidad){
-        $datos=$this->model->set_investigadores($nombre, $correo, $contraseña, $especialidad);
-        
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } else {
+            $ruta = null;
+        }
+        $datos=$this->model->set_investigadores($nombre, $correo, $contraseña, $especialidad, $ruta);
+        $correoModel = new correo_model();
+        $correoModel->enviarcorreoalta($correo);
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewinvestigador&msg=creado");
 

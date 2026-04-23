@@ -14,26 +14,59 @@ class entrada_controller{
         return $datos;
     }
     function mostrarentrada(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_entradas();
 
         //Llamada a la vista
         require_once("views/viewmostrarentrada.php");
     }
 
+    function mostrarentradaclient(){
+        $total=$this->model->get_total1();
+        $datos=$this->model->get_entradas2();
+
+        //Llamada a la vista
+        require_once("views/viewmostrarentrada.php");
+    }
 
     function alta($id, $tipo, $fecha_entrada, $cantidad, $precio, $total){
+        $alta = true;
+        $con = 0;
         $count=$this->model->get_entradas1($fecha_entrada);
         foreach($count as $c){
             $contador=$c["contador"]+$cantidad;
             if($contador>50){
-                header("Refresh:1, url=index.php?accion=viewentrada&msg=error");
+                $true = false;
             }
         }
 
-        $datos=$this->model->set_entradas($id, $tipo, $fecha_entrada, $cantidad, $precio, $total);
+        $fecha_actual = strtotime(date("Y-m-d H:i:s"));
+        $fecha_nacimiento = strtotime($fecha_entrada);
+
+        if($fecha_actual > $fecha_nacimiento){
+            $alta = false;
+            $con = 1;
+        }
+
+        if($alta){
+            $datos=$this->model->set_entradas($id, $tipo, $fecha_entrada, $cantidad, $precio, $total);
+            
+            //Llamada a la vista
+            if($_SESSION["usuario"]=="Admin"){
+                header("Refresh:1, url=index.php?accion=viewentrada&msg=creado");
+            }else{
+                header("Refresh:1, url=index.php?msg=creado");
+            }
+        }else{
+            if($con = 0){
+                header("Refresh:1, url=index.php?accion=viewaltaentrada&msg=error");
+            }else{
+                header("Refresh:1, url=index.php?accion=viewaltaentrada&msg=error1");
+            }
+        }
+
         
-        //Llamada a la vista
-        header("Refresh:1, url=index.php?accion=viewentrada&msg=creado");
+        
 
     }
 
@@ -45,7 +78,11 @@ class entrada_controller{
         $datos=$this->model->del_entrada($id);
         
         //Llamada a la vista
-        header("Refresh:1, url=index.php?accion=viewentrada&msg=eliminado");
+        if($_SESSION["usuario"]=="Admin"){
+            header("Refresh:1, url=index.php?accion=viewentrada&msg=eliminado");
+        }else{
+            header("Refresh:1, url=index.php?msg=eliminado");
+        }
 
     }
 }

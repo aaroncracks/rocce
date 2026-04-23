@@ -9,11 +9,37 @@ class animal_model{
     }
     
     public function get_animales(){
-        $consulta=$this->db->query("SELECT especie_id, nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id From animales inner join especies on animales.especie_id = especies.id;");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM animales")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "SELECT especie_id, nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id From animales inner join especies on animales.especie_id = especies.id";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE nombre LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->animales[]=$filas;
         }
         return $this->animales;
+    }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM animales")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+
+        return $totalPaginas;
     }
 
     public function get_animales1(){
@@ -26,14 +52,14 @@ class animal_model{
         return $this->animales;
     }
 
-    public function set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
+    public function set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta){
 
         try{
             $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id) ";
                 $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id')";
                 $consulta=$this->db->query($Sentencia);
-                $Sentencia="INSERT animales (especie_id, esqueleto, alimentacion) ";
-                $Sentencia.="VALUES (LAST_INSERT_ID(), '$esqueleto', '$alimentacion')";
+                $Sentencia="INSERT animales (especie_id, esqueleto, alimentacion, imagen) ";
+                $Sentencia.="VALUES (LAST_INSERT_ID(), '$esqueleto', '$alimentacion', '$ruta')";
                 $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

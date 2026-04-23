@@ -9,11 +9,37 @@ class proyecto_model{
     }
     
     public function get_proyectos(){
-        $consulta=$this->db->query("select * from proyectos;");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM proyectos")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "select * from proyectos";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE titulo LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->proyectos[]=$filas;
         }
         return $this->proyectos;
+    }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM proyectos")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+
+        return $totalPaginas;
     }
     public function get_proyectos1(){
         $id = $_GET["id"];

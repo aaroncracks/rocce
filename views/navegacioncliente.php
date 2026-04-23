@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                     <div class="d-inline-flex align-items-center">
-                        <p><i class="fa fa-envelope mr-2"></i><?php echo $_SESSION["usuario"]; ?></p>
+                        <a href="index.php?accion=viewusuarioun&id=<?php echo $_SESSION["usuario"]; ?>" class="nav-item nav-link">Usuario</a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
@@ -45,9 +45,22 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.php?accion=home" class="nav-item nav-link active">Home</a>
                         <a href="index.php?accion=about" class="nav-item nav-link">Sobre nosotros</a>
-                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link border-right">Actividades</a>
-                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link border-right">Entrada</a>
-                        <a href="index.php?accion=viewreseña" class="nav-item nav-link border-right">Reseña</a>
+                        <a href="index.php?accion=mostrarlugarclient" class="nav-item nav-link">Lugar</a>
+                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link">Actividades</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Entrada</a>
+                            <div class="dropdown-menu border-0 rounded-0 m-0">
+                                <a href="index.php?accion=viewaltaentrada" class="dropdown-item">Crear</a>
+                                <a href="index.php?accion=viewentradaclient" class="dropdown-item">Ver</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reseña</a>
+                            <div class="dropdown-menu border-0 rounded-0 m-0">
+                                <a href="index.php?accion=viewaltareseña" class="dropdown-item">Crear</a>
+                                <a href="index.php?accion=viewreseña" class="dropdown-item">Ver</a>
+                            </div>
+                        </div>
                         <a href="index.php?accion=cerrarsesion" class="nav-item nav-link">Cerrar Sesion</a>
                     </div>
                 </div>

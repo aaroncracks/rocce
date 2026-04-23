@@ -18,19 +18,45 @@ class planta_model{
         return $this->plantas;
     }
     public function get_plantas(){
-        
-        $consulta=$this->db->query("SELECT id, nombre, nom_cientifico, reproduccion, habitat, ciclo, tallo, lugar_id From plantas inner join especies on plantas.especie_id = especies.id;");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM plantas")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "SELECT id, nombre, nom_cientifico, reproduccion, habitat, ciclo, tallo, lugar_id From plantas inner join especies on
+         plantas.especie_id = especies.id";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE nombre LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->plantas[]=$filas;
         }
         return $this->plantas;
     }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM plantas")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
 
-    public function set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id){
+        return $totalPaginas;
+    }
+
+    public function set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $ruta){
 
         try{
-            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id) ";
-                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id')";
+            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id, imagen) ";
+                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id', '$ruta')";
                 $consulta=$this->db->query($Sentencia);
                 $Sentencia="INSERT plantas (especie_id, ciclo, tallo) ";
                 $Sentencia.="VALUES (LAST_INSERT_ID(), '$ciclo', '$tallo')";

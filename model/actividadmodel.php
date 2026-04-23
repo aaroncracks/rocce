@@ -9,11 +9,37 @@ class actividad_model{
     }
     
     public function get_actividades(){
-        $consulta=$this->db->query("SELECT actividades.id, actividades.nombre, actividades.descripcion, habilitado, lugares.nombre as nom_lugar From actividades left join lugares on actividades.lugar_id=lugares.id");
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM actividades")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+        if($pag > $totalPaginas){
+            $pag = $totalPaginas;
+        }
+        if($pag < 1){
+            $pag = 1;
+        }
+        $sql = "SELECT actividades.id, actividades.nombre, actividades.descripcion, habilitado, lugares.nombre as nom_lugar From actividades left join lugares on actividades.lugar_id=lugares.id";
+        if (!empty($_POST["buscar"])) {
+            $buscar = $_POST["buscar"];
+            $sql .= " WHERE actividades.nombre LIKE '$buscar%'";
+        }
+        $sql .= " LIMIT $inicio, $porPagina;";
+        $consulta=$this->db->query($sql);
         while($filas=$consulta->fetch_assoc()){
             $this->actividades[]=$filas;
         }
         return $this->actividades;
+    }
+    public function get_total(){
+        $pag = $_GET["pag"] ?? 1;
+        $porPagina = 5;
+        $inicio = ($pag - 1) * $porPagina;
+        $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM actividades")->fetch_assoc()["total"];
+        $totalPaginas = ceil($totalRegistros / $porPagina);
+
+        return $totalPaginas;
     }
 
     public function get_actividades1(){
@@ -26,11 +52,11 @@ class actividad_model{
         return $this->actividades;
     }
 
-    public function set_actividad($nombre, $descripcion, $habilitado, $lugar_id){
+    public function set_actividad($nombre, $descripcion, $habilitado, $lugar_id, $ruta){
         
         try{
-            $Sentencia="INSERT actividades (nombre, descripcion, habilitado, lugar_id) ";
-            $Sentencia.="VALUES ('$nombre', '$descripcion', $habilitado, '$lugar_id')";
+            $Sentencia="INSERT actividades (nombre, descripcion, habilitado, lugar_id, imagen) ";
+            $Sentencia.="VALUES ('$nombre', '$descripcion', $habilitado, '$lugar_id', '$ruta')";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){
@@ -53,6 +79,9 @@ class actividad_model{
     public function del_actividad($id){
 
         try{
+            $Sentencia="DELETE from comentarios ";
+            $Sentencia.="WHERE actividad_id='$id'";
+            $consulta=$this->db->query($Sentencia);
             $Sentencia="DELETE from actividades ";
             $Sentencia.="WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);

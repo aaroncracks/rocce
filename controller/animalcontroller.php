@@ -13,6 +13,7 @@ class animal_controller{
 
 
     function mostraranimal(){
+        $total=$this->model->get_total();
         $datos=$this->model->get_animales();
         
         //Llamada a la vista
@@ -40,7 +41,17 @@ class animal_controller{
     }
 
     function alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
-        $datos=$this->model->set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id);
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } else {
+            $ruta = null;
+        }
+        $datos=$this->model->set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewanimal&msg=creado");
