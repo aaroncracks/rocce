@@ -33,6 +33,10 @@ class actividad_controller{
         require_once("views/viewmostraractividad.php");
 
     }
+    function mostraractividaddatos(){
+        $actividades=$this->model->get_actividades();
+        return $actividades;
+    }
 
     function mostraraltaactividad(){
         $datos = $this->controller->mostrardatos();

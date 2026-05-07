@@ -42,7 +42,7 @@ class usuario_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, correo, contraseña, imagen FROM usuarios u
+        $sql = "SELECT id, nombre, correo, contraseña, u.imagen FROM usuarios u
         LEFT JOIN trabajadores t ON u.id = t.usuario_id
         LEFT JOIN investigadores i ON u.id = i.usuario_id
         WHERE t.usuario_id IS NULL

@@ -118,8 +118,15 @@
                                         <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i><?php echo $dato["autor"]; ?></small>
                                         <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i><?php echo $dato["fecha"]; ?></small>
                                     </div>
-                                    <a class="h5 text-decoration-none" href="index.php?accion=viewmodproyecto&id=<?= $dato['id'] ?>"><?php echo $dato["titulo"]; ?></a>
+                                    <a class="h5 text-decoration-none" href="index.php?accion=viewmodproyecto&id=<?= $dato['id'] ?>"><?php echo $dato["titulo"]; ?></a><br>
                                     <a href="index.php?accion=delproyecto&id=<?= $dato['id'] ?>" class="btn btn-primary ml-5 w-40 left--1-m">Eliminar</a>
+                                    <?php if($dato['archivo']): ?>
+                                        <a href="<?= $dato['archivo'] ?>" class="btn btn-primary" download>
+                                            📄 Descargar
+                                        </a>
+                                    <?php else: ?>
+                                        <p>No hay archivo</p>
+                                    <?php endif; ?>
                                     </div>
                                     
                                 </div>

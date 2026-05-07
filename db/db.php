@@ -201,6 +201,8 @@ class Conectar{
             mysqli_query($c,$Sentencia);
             $Sentencia="ALTER TABLE Minerales ADD imagen VARCHAR(255);";
             mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE Proyectos ADD archivo VARCHAR(255);";
+            mysqli_query($c,$Sentencia);
             echo "<h2 style='color:red;text-align:center;margin-top:50px'>
                      BASE DE DATOS CREADA CON EXITO
                 </h2>";

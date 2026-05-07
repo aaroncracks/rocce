@@ -32,6 +32,10 @@ class reseña_controller{
         require_once("views/viewmostrarreseña.php");
 
     }
+    function mostrarreseñadatos(){
+        $reseñas=$this->model->get_reseñas();
+        return $reseñas;
+    }
 
     function mostraraltareseña(){
         $alta = true;

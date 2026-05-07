@@ -45,6 +45,8 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.php?accion=home" class="nav-item nav-link active">Home</a>
                         <a href="index.php?accion=viewactividad" class="nav-item nav-link border-right">Actividades</a>
+                        <a href="index.php?accion=viewanimalclient" class="nav-item nav-link border-right">Animales</a>
+                        <a href="index.php?accion=viewplantaclient" class="nav-item nav-link border-right">Plantas</a>
                         <a href="index.php?accion=cerrarsesion" class="nav-item nav-link">Cerrar Sesion</a>
                     </div>
                 </div>

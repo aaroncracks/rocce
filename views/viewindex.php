@@ -218,7 +218,98 @@
         </div>
     </div>
     <!-- Feature End -->
+<div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <div class="text-center mb-3 pb-3">
+                <div class="d-flex justify-content-center align-items-center mr-5 pr-5">
+                    <img style="width: 200px" src="img/logoactividad.png" alt="Image">
+                    <h1>Actividades</h1>
+                </div>
+                
+            </div>
+            <div class="row">
+            <?php foreach($actividades as $actividad){ ?>
+               
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <img class="img-fluid" src="<?= $actividad["imagen"] ?>" width="500px">
+                    <div class="package-item bg-white mb-2">
+                        
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i><?= $actividad["nom_lugar"] ?></small>
+                            </div>
+                            <a class="h5 text-decoration-none" href=""><?= $actividad["nombre"] ?></a>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <?php } ?>
+            </div>
+            <a href="index.php?accion=mostraractividadclient" class="btn btn-primary py-md-3 px-md-5 mt-2">Ver mas</a>
+            </div>
+            
+        </div>
+        
+    </div>
 
+    <div class="bg-primary container-fluid py-5">
+        <div class="text-center mb-3 pb-3">
+                <div class="d-flex justify-content-center align-items-center mr-5 pr-5">
+                    <h1>Mapa</h1>
+                </div>
+                
+            </div>
+            <iframe src="https://maps.app.goo.gl/CHjmBqabrcjX9bQr5" frameborder="0" width="600" height="450"></iframe>
+    </div>
+
+    <div class="container-fluid py-5">
+        <div class="text-center mb-3 pb-3">
+                <div class="d-flex justify-content-center align-items-center mr-5 pr-5">
+                    <img style="width: 200px" src="img/logoactividad.png" alt="Image">
+                    <h1>Reseñas</h1>
+                </div>
+                
+            </div>
+        <?php 
+                    foreach ($reseñas as $reseña) {
+
+                ?>
+                
+                            <div class="col mb-4">
+                                <div class="package-item bg-white mb-2">
+                                    
+                                    <div class="p-4">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <small class="m-0"><?php echo $reseña["nombre"]; ?></small>
+                                    </div>
+                                    <a class="h5 text-decoration-none" href=""><?php echo $reseña["descripcion"]; ?></a>
+                                    <p><?php echo $reseña["fecha"]; ?></p>
+                                    <?php
+                                    try{ 
+                                        if(isset($_SESSION["usuario"])){
+                                        if($reseña["id"]==$_SESSION["usuario"]){ 
+                                    ?>
+                                        <a href="index.php?accion=delreseña&id=<?= $reseña['id'] ?>"
+                                        onclick="return confirm('¿Seguro que quieres eliminar este usuario?')"
+                                        class="btn btn-danger btn-sm">
+                                        Eliminar
+                                        </a>
+                                        <?php }}
+                                    }catch(Exception $g){ 
+                                        echo "no se encuentra el id usuario";
+                                         }?>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                    
+                <?php } ?>
+    </div>
+
+    
 
     <!-- Destination Start -->
     <?php include ('views/footer.php'); ?>

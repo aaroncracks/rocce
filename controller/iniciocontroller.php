@@ -1,6 +1,6 @@
 <?php
 class inicio_controller{
-    function mostrarhome(){
+    function mostrarhome($actividades, $reseñas){
         require_once("views/viewindex.php");
     }
     function mostraradmin(){

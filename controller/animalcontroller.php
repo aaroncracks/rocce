@@ -21,6 +21,16 @@ class animal_controller{
 
     }
 
+    function mostraranimalclient(){
+        $datos=$this->model->get_animales();
+
+        
+        
+        //Llamada a la vista
+        require_once("views/viewmostraranimalclient.php");
+
+    }
+
     function mostrarmodanimal(){
         $datos = $this->model->get_animales1();
         $lugares = $this->controller->mostrardatos();

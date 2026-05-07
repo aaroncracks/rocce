@@ -20,7 +20,7 @@ class actividad_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT actividades.id, actividades.nombre, actividades.descripcion, habilitado, lugares.nombre as nom_lugar From actividades left join lugares on actividades.lugar_id=lugares.id";
+        $sql = "SELECT actividades.id, actividades.nombre, actividades.descripcion, habilitado, lugares.nombre as nom_lugar , actividades.imagen From actividades left join lugares on actividades.lugar_id=lugares.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE actividades.nombre LIKE '$buscar%'";

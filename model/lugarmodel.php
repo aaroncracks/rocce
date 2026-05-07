@@ -53,7 +53,7 @@ class lugar_model{
     public function set_lugares($nombre, $descripcion, $ruta){
         
         try{
-            $Sentencia="INSERT lugares (nombre, descripcion) ";
+            $Sentencia="INSERT lugares (nombre, descripcion, imagen) ";
             $Sentencia.="VALUES ('$nombre', '$descripcion', '$ruta')";
             $consulta=$this->db->query($Sentencia);
             

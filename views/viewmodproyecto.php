@@ -74,11 +74,13 @@
         <p class="help-block text-danger"></p>
     </div>
     <div class="control-group">
-        <textarea class="form-control py-3 px-4" rows="40" name="justificacion" placeholder="justificacion"
+        <textarea class="form-control py-3 px-4" rows="4" name="justificacion" placeholder="justificacion"
             required="required"
             data-validation-required-message="Por favor escriba una justificacion"> <?php echo $dato["justificacion"]; ?></textarea>
         <p class="help-block text-danger"></p>
     </div>
+    <label for="">Archivo</label>
+                <input type="file" name="archivo">
     <div class="text-center">
         <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">Modificar <?php echo $dato["titulo"] ?></button>
     </div>

@@ -55,7 +55,7 @@
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
-                <form action="index.php?accion=altaproyecto"  method="post">
+                <form action="index.php?accion=altaproyecto"  method="post" enctype="multipart/form-data">
                     <div class="control-group">
                         <label for="">TITULO</label>
                         <input type="text" class="form-control p-4" name="titulo" placeholder="titulo"
@@ -70,11 +70,13 @@
                     </div>
                     <div class="control-group">
                         <label for="">JUSTIFICACION</label>
-                        <textarea class="form-control py-3 px-4" rows="40" name="justificacion" placeholder="justificacion"
+                        <textarea class="form-control py-3 px-4" rows="4" name="justificacion" placeholder="justificacion"
                             required="required"
                             data-validation-required-message="Por favor escriba una justificacion"></textarea>
                         <p class="help-block text-danger"></p>
                     </div>
+                    <label for="">Archivo</label>
+                <input type="file" name="archivo">
                     <div class="text-center">
                         <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">CREAR proyecto</button>
                     </div>

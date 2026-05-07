@@ -27,12 +27,16 @@ require_once("controller/reseñacontroller.php");
         $accion = $_GET["accion"] ?? "home";  
     }
 
+    $controllerac = new actividad_controller();
+    $actividades = $controllerac->mostraractividaddatos();
     
+    $controllerre = new reseña_controller();
+    $reseñas = $controllerre->mostrarreseñadatos();
 
     switch($accion){
         case 'home':
             $controller = new inicio_controller();
-            $controller->mostrarhome();
+            $controller->mostrarhome($actividades, $reseñas);
             break;
 
         case 'admin':
@@ -236,6 +240,13 @@ require_once("controller/reseñacontroller.php");
             $controller = new planta_controller();
             $controller->mostrarplanta();
             break;
+
+        case 'viewplantaclient':
+            
+            $controller = new planta_controller();
+            $controller->mostrarplantaclient();
+            break;
+        
         case 'viewaltaplanta':
             $controller = new planta_controller();
             $controller->mostraraltaplanta();
@@ -408,6 +419,12 @@ require_once("controller/reseñacontroller.php");
             
             $controller = new animal_controller();
             $controller->mostraranimal();
+            break;
+
+        case 'viewanimalclient':
+            
+            $controller = new animal_controller();
+            $controller->mostraranimalclient();
             break;
         case 'viewaltaanimal':
             $controller = new animal_controller();

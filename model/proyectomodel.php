@@ -71,11 +71,11 @@ class proyecto_model{
         return $this->proyectos;
     }
 
-    public function set_proyectos($titulo, $autor, $justificacion){
+    public function set_proyectos($titulo, $autor, $justificacion, $ruta){
         $id_inv = $_SESSION["usuario"];
         try{
-            $Sentencia="INSERT proyectos (titulo, autor, fecha, justificacion) ";
-            $Sentencia.="VALUES ('$titulo', '$autor', CURRENT_DATE(), '$justificacion');";
+            $Sentencia="INSERT proyectos (titulo, autor, fecha, justificacion, archivo) ";
+            $Sentencia.="VALUES ('$titulo', '$autor', CURRENT_DATE(), '$justificacion', '$ruta');";
             $consulta=$this->db->query($Sentencia);
             $Sentencia="INSERT trabajan (investigador_id, proyecto_id) ";
             $Sentencia.="VALUES ('$id_inv', LAST_INSERT_ID());";
@@ -98,11 +98,11 @@ class proyecto_model{
         }
     }
 
-    public function mod_proyecto($id, $titulo, $autor, $justificacion){
+    public function mod_proyecto($id, $titulo, $autor, $justificacion, $ruta){
 
         try{
             $Sentencia="UPDATE proyectos ";
-            $Sentencia.="SET titulo='$titulo', autor='$autor', justificacion='$justificacion' WHERE id='$id'";
+            $Sentencia.="SET titulo='$titulo', autor='$autor', justificacion='$justificacion', archivo='$ruta' WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){
