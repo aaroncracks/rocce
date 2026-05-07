@@ -215,7 +215,7 @@ require_once("controller/reseñacontroller.php");
 
             $precio = $precios[$tipo];
             $total = $precio * $cantidad;
-            $fecha_entrada = $_POST["fecha"];
+            $fecha_entrada = $_POST["fch_compra"];
 
             if($_SESSION["usuario"]=="Admin"){
                 $id=1;

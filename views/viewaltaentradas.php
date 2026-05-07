@@ -86,7 +86,7 @@
                 <form id="form" method="post">
                 <div class="control-group">
                     <label for="">TIPO DE ENTRADA</label>
-                        <select name="tipo" class="form-control" required="required">
+                        <select id="tipo" name="tipo" class="form-control" required="required">
                             <option value="General">General - 10€</option>
                             <option value="Estudiante">Estudiante - 7€</option>
                             <option value="Jubilado">Jubilado - 6€</option>
@@ -96,13 +96,13 @@
                 </div>
                 <div class="control-group">
                     <label for="">CANTIDAD</label>
-                    <input type="number" class="form-control p-4" name="cantidad" placeholder="cantidad" 
+                    <input id="cantidad" type="number" class="form-control p-4" name="cantidad" placeholder="cantidad" 
                         required="required" data-validation-required-message="Por favor escriba el cantidad" />
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="control-group">
                     <label for="">FECHA</label>
-                    <input type="date" class="form-control p-4" name="fecha" placeholder="fecha" 
+                    <input id="fch_compra" type="date" class="form-control p-4" name="fecha" placeholder="fecha" 
                         required="required" data-validation-required-message="Por favor escriba el fecha" />
                     <p class="help-block text-danger"><?php if(isset($_GET["msg"])){ echo "Pon la fecha mas adelante que la actual"; } ?></p>
                 </div>
@@ -177,31 +177,25 @@
                                 return actions.order.capture().then(function(details) {
                                     const email = details.payer.email_address;
                                     const nombre = details.payer.name.given_name + ' ' + details.payer.name.surname;
-                                    //$.ajax({
-                                        // url: '/Proyecto/reservaController',
-                                        // type: 'POST',
-                                        // data: {
-                                        //     usuario : usuario,
-                                        //     habitacion : habitacion,
-                                        //     factura : factura,
-                                        //     monto : monto,
-                                        //     email : email,
-                                        //     nombre : nombre,
-                                        //     finicio : $("#inicio").val(),
-                                        //     ffin : $("#fin").val(),
-                                        //     pagar : 1
-                                        // },
-                                        // success: function(response) {
-                                        //     if (response) {
-                                        //         window.location.href = "";
-                                        //     }else {
-                                        //         alert(response);
-                                        //     }
-                                        // },
-                                        // error: function() {
-                                        //     alert('Ocurrió un error al procesar la solicitud.');
-                                        // }
-                                    //});
+                                    $.ajax({
+                                         url: 'index.php?accion=altaentrada',
+                                         type: 'POST',
+                                         data: {
+                                             tipo : tipo,
+                                             cantidad : cantidad,
+                                             fch_compra : fch_compra,
+                                         },
+                                         success: function(response) {
+                                             if (response) {
+                                                 window.location.href = "";
+                                             }else {
+                                                 alert(response);
+                                             }
+                                         },
+                                         error: function() {
+                                             alert('Ocurrió un error al procesar la solicitud.');
+                                         }
+                                    });
                                 });
                                 
                             },
