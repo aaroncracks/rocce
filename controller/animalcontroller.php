@@ -1,6 +1,7 @@
 <?php
 require_once ('model/animalmodel.php');
 require_once('controller/lugarcontroller.php');
+require_once('controller/trabajadorcontroller.php');
 
 class animal_controller{
     
@@ -9,7 +10,9 @@ class animal_controller{
     public function __construct() {
         $this->model = new animal_model();
         $this->controller = new lugar_controller();
+        $this->controller1 = new trabajador_controller();
     }
+
 
 
     function mostraranimal(){
@@ -23,9 +26,8 @@ class animal_controller{
 
     function mostraranimalclient(){
         $datos=$this->model->get_animales();
+        $num_trab=$this->controller1->trabajadorid();
 
-        
-        
         //Llamada a la vista
         require_once("views/viewmostraranimalclient.php");
 

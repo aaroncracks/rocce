@@ -7,6 +7,12 @@ class trabajador_model{
         $this->db=Conectar::conexion();
         $this->trabajadores=array();
     }
+    public function get_trabajadores2(){
+        $id = $_SESSION["usuario"];
+        $consulta=$this->db->query("SELECT count(*) AS total From trabajadores WHERE usuario_id='$id';");
+        $num_trab = $consulta->fetch_assoc();
+        return (int)$num_trab["total"];
+    }
     
     public function get_trabajadores1(){
         $id = $_GET["id"];

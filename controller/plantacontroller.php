@@ -1,6 +1,7 @@
 <?php
 require_once ('model/plantamodel.php');
 require_once('controller/lugarcontroller.php');
+require_once('controller/trabajadorcontroller.php');
 
 class planta_controller{
     
@@ -9,6 +10,7 @@ class planta_controller{
     public function __construct() {
         $this->model = new planta_model();
         $this->controller = new lugar_controller();
+        $this->controller1 = new trabajador_controller();
     }
 
 
@@ -18,6 +20,14 @@ class planta_controller{
         
         //Llamada a la vista
         require_once("views/viewmostrarplanta.php");
+
+    }
+
+    function mostrarplantaclient(){
+        $datos=$this->model->get_plantas();
+        $num_trab=$this->controller1->trabajadorid();
+        //Llamada a la vista
+        require_once("views/viewmostrarplantaclient.php");
 
     }
 

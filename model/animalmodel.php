@@ -20,7 +20,7 @@ class animal_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT especie_id, nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id From animales inner join especies on animales.especie_id = especies.id";
+        $sql = "SELECT especie_id, nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id, animales.imagen From animales inner join especies on animales.especie_id = especies.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE nombre LIKE '$buscar%'";

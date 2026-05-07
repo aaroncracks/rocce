@@ -9,7 +9,13 @@ class trabajador_controller{
     public function __construct() {
         $this->model = new trabajador_model();
     }
-
+    
+    function trabajadorid(){
+        $num_trab=$this->model->get_trabajadores2();
+        return $num_trab;
+    
+    }
+    
     function mostrardatos(){
         $datos=$this->model->get_trabajadores();
         return $datos;

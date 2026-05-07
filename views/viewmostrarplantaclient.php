@@ -31,11 +31,11 @@
 <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-                <h3 class="display-4 text-white text-uppercase">ANIMALES</h3>
+                <h3 class="display-4 text-white text-uppercase">PLANTAS</h3>
                 <div class="d-inline-flex text-white">
                     <p class="m-0 text-uppercase"><a class="text-white" href="index.php?accion=home">Home</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">ANIMALES</p>
+                    <p class="m-0 text-uppercase">PLANTAS</p>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                                             if((int)$num_trab > 0){
                                                ?>
                                                
-                                                <a class="h5 text-decoration-none" href="index.php?accion=viewmodanimal&id=<?= $dato['especie_id'] ?>">Modificar</a> 
+                                                <a class="h5 text-decoration-none" href="index.php?accion=viewmodplanta&id=<?= $dato['especie_id'] ?>">Modificar</a> 
                                             
                                             <?php
                                             }
