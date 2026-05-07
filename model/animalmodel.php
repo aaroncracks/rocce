@@ -7,6 +7,32 @@ class animal_model{
         $this->db=Conectar::conexion();
         $this->animales=array();
     }
+
+    public function actualizarTemporada($id, $temporada){
+
+        $sql = "UPDATE especies
+                SET temporada = ?
+                WHERE id = ?";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bind_param("ii", $temporada, $id);
+
+        return $stmt->execute();
+    }
+
+    public function actualizarlugar($id, $lugar){
+
+        $sql = "UPDATE especies
+                SET lugar_id = ?
+                WHERE id = ?";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bind_param("ii", $lugar, $id);
+
+        return $stmt->execute();
+    }
     
     public function get_animales(){
         $pag = $_GET["pag"] ?? 1;
@@ -20,7 +46,9 @@ class animal_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT especie_id, nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id, animales.imagen From animales inner join especies on animales.especie_id = especies.id";
+        $sql = "SELECT especie_id, especies.nombre as nombre, nom_cientifico, reproduccion, habitat, esqueleto, alimentacion, lugar_id, animales.imagen, lugares.nombre as lugar, temporada From animales 
+        inner join especies on animales.especie_id = especies.id
+        inner join lugares on especies.lugar_id = lugares.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE nombre LIKE '$buscar%'";

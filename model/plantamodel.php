@@ -29,8 +29,9 @@ class planta_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, nom_cientifico, reproduccion, habitat, ciclo, tallo, lugar_id From plantas inner join especies on
-         plantas.especie_id = especies.id";
+        $sql = "SELECT especie_id, especies.nombre as nombre, nom_cientifico, reproduccion, habitat, ciclo, tallo, lugar_id, plantas.imagen, lugares.nombre as lugar, temporada From plantas 
+        inner join especies on plantas.especie_id = especies.id
+        inner join lugares on especies.lugar_id = lugares.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE nombre LIKE '$buscar%'";
@@ -52,19 +53,17 @@ class planta_model{
         return $totalPaginas;
     }
 
-    public function set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $ruta){
+    public function set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $ruta, $temporada){
 
-        try{
-            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id, imagen) ";
-                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id', '$ruta')";
+        
+            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id, temporada) ";
+                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id', '$temporada')";
                 $consulta=$this->db->query($Sentencia);
-                $Sentencia="INSERT plantas (especie_id, ciclo, tallo) ";
-                $Sentencia.="VALUES (LAST_INSERT_ID(), '$ciclo', '$tallo')";
+                $Sentencia="INSERT plantas (especie_id, ciclo, tallo, imagen) ";
+                $Sentencia.="VALUES (LAST_INSERT_ID(), '$ciclo', '$tallo', '$ruta')";
                 $consulta=$this->db->query($Sentencia);
             
-        } catch(Exception $g){
-            echo "El Correo Electronico no es válido. Por favor, use otro."; /*E-Mail es Unique y debe tener un @*/
-        }
+        
     }
 
     public function mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo){

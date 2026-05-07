@@ -26,6 +26,7 @@ class planta_controller{
     function mostrarplantaclient(){
         $datos=$this->model->get_plantas();
         $num_trab=$this->controller1->trabajadorid();
+        $lugares = $this->controller->mostrardatos();
         //Llamada a la vista
         require_once("views/viewmostrarplantaclient.php");
 
@@ -42,15 +43,15 @@ class planta_controller{
         require_once("views/viewmodplanta.php");
     }
 
-    function mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
-        $datos=$this->model->mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id);
+    function mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada){
+        $datos=$this->model->mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewplanta&msg=modificado");
 
     }
 
-    function alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id){
+    function alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $temporada){
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
 
             $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
@@ -61,7 +62,7 @@ class planta_controller{
         } else {
             $ruta = null;
         }
-        $datos=$this->model->set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $ruta);
+        $datos=$this->model->set_planta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $ruta, $temporada);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewplanta&msg=creado");

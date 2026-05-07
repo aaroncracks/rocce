@@ -29,7 +29,7 @@ class investigador_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, correo, contraseña, especialidad, usuario_id From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id";
+        $sql = "SELECT id, nombre, correo, contraseña, especialidad, usuario_id, usuarios.imagen as imagen From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE nombre LIKE '$buscar%'";

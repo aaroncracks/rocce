@@ -142,6 +142,14 @@
         </div>
     </div> -->
     <!-- Booking End -->
+     <div class="bg-primary container-fluid py-3 mt-3">
+        <div class="text-center mb-3 pb-3">
+                <iframe class="embed-responsive" width="560" height="600" src="https://www.youtube.com/embed/5kXbwIkldSk?si=Ne172c_qAXN_tay5" title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+     gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                
+            </div>
+    </div>
 
 
     <!-- About Start -->
@@ -260,7 +268,7 @@
                 </div>
                 
             </div>
-            <iframe src="https://maps.app.goo.gl/CHjmBqabrcjX9bQr5" frameborder="0" width="600" height="450"></iframe>
+            <iframe class="embed-responsive" src="https://maps.app.goo.gl/CHjmBqabrcjX9bQr5" frameborder="0" width="1800" height="450"></iframe>
     </div>
 
     <div class="container-fluid py-5">

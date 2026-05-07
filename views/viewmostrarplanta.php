@@ -97,6 +97,7 @@
         <table class="table table-striped table-hover align-middle text-center">
             <thead class="table-dark">
                 <tr>
+                    <th>Imagen</th>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Nombre Cientifico</th>
@@ -112,7 +113,8 @@
             <tbody>
                 <?php foreach($datos as $dato){ ?>
                 <tr>
-                    <td><?= $dato["id"] ?></td>
+                    <td><img src="<?= $dato["imagen"] ?>" alt="" width="100px"></td>
+                    <td><?= $dato["especie_id"] ?></td>
                     <td><?= $dato["nombre"] ?></td>
                     <td><?= $dato["nom_cientifico"] ?></td>
                     <td><?= $dato["reproduccion"] ?></td>
@@ -122,13 +124,13 @@
                     <td><?= $dato["lugar_id"] ?></td>
                     <td>
                         <!-- Editar -->
-                        <a href="index.php?accion=viewmodplanta&id=<?= $dato['id'] ?>"
+                        <a href="index.php?accion=viewmodplanta&id=<?= $dato['especie_id'] ?>"
                            class="btn btn-warning btn-sm">
                            Editar
                         </a>
 
                         <!-- Eliminar -->
-                        <a href="index.php?accion=delplanta&id=<?= $dato['id'] ?>"
+                        <a href="index.php?accion=delplanta&id=<?= $dato['especie_id'] ?>"
                            onclick="return confirm('¿Seguro que quieres eliminar este usuario?')"
                            class="btn btn-danger btn-sm">
                            Eliminar

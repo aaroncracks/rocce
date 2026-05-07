@@ -88,6 +88,14 @@
             </select>
             <p class="help-block text-danger"></p>
         </div>
+        <label>Temporada</label>
+
+    <select name="temporada" class="form-control">
+
+        <option value="1">Disponible</option>
+        <option value="0">No disponible</option>
+
+    </select><br>
         <label for="">Imagen</label>
         <input type="file" name="imagen">
         <div class="text-center">

@@ -48,7 +48,19 @@ require_once("controller/reseñacontroller.php");
             $controller = new inicio_controller();
             $controller->mostrarabout();
             break;
-        
+
+        case 'actualizarlugar':
+            $id = $_POST['id'];
+        $lugar = $_POST['lugar'];
+            $controller = new animal_controller();
+            $controller->actualizarlugar($id, $lugar);
+            break;
+
+        case 'actualizarTemporada':
+            $controller = new animal_controller();
+            $controller->actualizarTemporada();
+            break;
+
         case 'cerrarsesion':
             $controller = new inicio_controller();
             $controller->cerrar_sesion();
@@ -265,8 +277,9 @@ require_once("controller/reseñacontroller.php");
             $ciclo=$_POST["ciclo"];
             $tallo=$_POST["tallo"];
             $lugar_id=$_POST["lugar_id"];
+            $temporada=$_POST["temporada"];
             $controller = new planta_controller();
-            $controller->alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id);
+            $controller->alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $temporada);
             break;
         
         case 'modplanta':
@@ -278,8 +291,9 @@ require_once("controller/reseñacontroller.php");
             $ciclo=$_POST["ciclo"];
             $tallo=$_POST["tallo"];
             $lugar_id=$_POST["lugar_id"];
+            $temporada=$_POST["temporada"];
             $controller = new planta_controller();
-            $controller->mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id);
+            $controller->mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $lugar_id, $temporada);
             break;
         
         case 'delplanta':

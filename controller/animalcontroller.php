@@ -13,7 +13,20 @@ class animal_controller{
         $this->controller1 = new trabajador_controller();
     }
 
+    public function actualizarTemporada(){
 
+        $id = $_POST["id"];
+        $temporada = $_POST["temporada"];
+
+
+        $this->model->actualizarTemporada($id, $temporada);
+    }
+
+    public function actualizarlugar($id, $lugar){
+        $id = $_POST['id'];
+        $lugar = $_POST['lugar'];
+        $this->model->actualizarlugar($id, $lugar);
+    }
 
     function mostraranimal(){
         $total=$this->model->get_total();
@@ -27,7 +40,7 @@ class animal_controller{
     function mostraranimalclient(){
         $datos=$this->model->get_animales();
         $num_trab=$this->controller1->trabajadorid();
-
+        $lugares = $this->controller->mostrardatos();
         //Llamada a la vista
         require_once("views/viewmostraranimalclient.php");
 

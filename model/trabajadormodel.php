@@ -16,7 +16,7 @@ class trabajador_model{
     
     public function get_trabajadores1(){
         $id = $_GET["id"];
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, puesto, usuario_id From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id
+        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, puesto, usuario_id, usuarios.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id
         WHERE trabajadores.usuario_id='$id';");
         while($filas=$consulta->fetch_assoc()){
             $this->trabajadores[]=$filas;
@@ -35,7 +35,7 @@ class trabajador_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, correo, contraseña, puesto, usuario_id From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id";
+        $sql = "SELECT id, nombre, correo, contraseña, puesto, usuario_id, usuarios.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " AND nombre LIKE '$buscar%'";

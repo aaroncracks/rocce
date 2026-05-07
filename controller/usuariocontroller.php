@@ -36,17 +36,17 @@ class usuario_controller{
             foreach($datos as $dato){
                 $_SESSION['usuario']=$dato["id"];
             }
-            
+            header("Refresh:1, url=index.php");
         }
         if($Sesion==0){
-            echo "Usuario erroneo";
+            header("Refresh:1, url=index.php?accion=viewplanta&msg=eliminado");
         }
             
         if($Sesion==2){
             echo "Por favor espere mientras habilitamos su cuenta";
         }
 
-        header("Refresh:1, url=index.php");
+       
     }
 
 

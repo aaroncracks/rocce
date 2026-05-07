@@ -99,6 +99,7 @@
         <table class="table table-striped table-hover align-middle text-center">
             <thead class="table-dark">
                 <tr>
+                    <th>Imagen</th>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
@@ -111,6 +112,7 @@
             <tbody>
                 <?php foreach($datos as $dato){ ?>
                 <tr>
+                    <td><img src="<?= $dato["imagen"] ?>" alt="" width="100px"></td>
                     <td><?= $dato["id"] ?></td>
                     <td><?= $dato["nombre"] ?></td>
                     <td><?= $dato["descripcion"] ?></td>

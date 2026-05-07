@@ -45,6 +45,9 @@
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.php?accion=home" class="nav-item nav-link active">Home</a>
+                        <a href="index.php?accion=viewanimal" class="nav-item nav-link">Animales</a>
+                        <a href="index.php?accion=viewplanta" class="nav-item nav-link">Plantas</a>
+                        <a href="index.php?accion=viewmineral" class="nav-item nav-link">Minerales</a>
                         <a href="index.php?accion=viewproyectoinv" class="nav-item nav-link border-right">Proyectos</a>
                         <a href="index.php?accion=cerrarsesion" class="nav-item nav-link">Cerrar Sesion</a>
                     </div>

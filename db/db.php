@@ -203,6 +203,7 @@ class Conectar{
             mysqli_query($c,$Sentencia);
             $Sentencia="ALTER TABLE Proyectos ADD archivo VARCHAR(255);";
             mysqli_query($c,$Sentencia);
+            $Sentencia="ALTER TABLE especies ADD temporada TINYINT(1)";
             echo "<h2 style='color:red;text-align:center;margin-top:50px'>
                      BASE DE DATOS CREADA CON EXITO
                 </h2>";

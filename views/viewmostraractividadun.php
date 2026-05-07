@@ -65,7 +65,7 @@
                     foreach ($datos as $dato) {
 
                 ?>
-<img src="<?= $dato['imagen'] ?>" class="card-img-top">
+<img src="<?= $dato['imagen'] ?>" class="card-img-top" height="400px">
     <h1 class="mb-4 text-center"><?= $dato["nombre"] ?></h1>
 
     <h3><?= $dato["descripcion"] ?></h3>

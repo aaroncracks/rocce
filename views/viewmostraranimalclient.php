@@ -97,7 +97,7 @@
                                     <img src="<?= $dato['imagen'] ?>" class="card-img-top" height="200px">                           
                                     <div class="p-4">
                                     <div class="d-flex justify-content-between mb-3">
-                                        <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i><?php echo $dato["lugar_id"]; ?></small>
+                                        <small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i><?php echo $dato["lugar"]; ?></small>
                                     </div>
                                         <a class="h5 text-decoration-none" href=""><?php echo $dato["nombre"]; ?></a>
                                     
@@ -108,7 +108,21 @@
                                             if((int)$num_trab > 0){
                                                ?>
                                                
-                                                <a class="h5 text-decoration-none" href="index.php?accion=viewmodanimal&id=<?= $dato['especie_id'] ?>">Modificar</a> 
+                                                 <select class="lugar" data-id="<?= $dato['especie_id'] ?>">
+                                                    <option value="" selected disabled hidden>Elige lugar</option>
+                                                    <?php 
+                                                        foreach($lugares as $lugar){            
+                                                                echo '<option value="'.$lugar["id"].'">'.$lugar["nombre"].'</option>';
+                                                        
+                                                        
+                                                    } ?>
+                                                </select>
+
+                                                <select class="temporada" data-id="<?= $dato['especie_id'] ?>">
+                                                    <option value="" selected disabled hidden>Elige temporada</option>
+                                                    <option value="1">En temporada</option>
+                                                    <option value="0">No disponible</option>
+                                                </select>
                                             
                                             <?php
                                             }
@@ -131,6 +145,82 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.querySelectorAll(".lugar").forEach(select => {
+
+        select.addEventListener("change", function(){
+            
+            let id = this.dataset.id;
+            let lugar = this.value;
+            console.log("Enviando ID:", id, "Lugar:", lugar);
+            $.ajax({
+
+                url: 'index.php?accion=actualizarlugar',
+
+                type: 'POST',
+
+                data: {
+                    id : id,
+                    lugar : lugar
+                },
+
+                success: function(response){
+
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Animal actualizado',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+
+                }
+
+            });
+
+        });
+
+    });
+
+    document.querySelectorAll(".temporada").forEach(select => {
+
+        select.addEventListener("change", function(){
+
+            let id = this.dataset.id;
+            let temporada = this.value;
+
+            $.ajax({
+
+                url: 'index.php?accion=actualizarTemporada',
+
+                type: 'POST',
+
+                data: {
+                    id : id,
+                    temporada : temporada
+                },
+
+                success: function(response){
+
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Animal actualizado',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+
+                }
+
+            });
+
+        });
+
+    });
+    </script>
  
 <?php include ('views/footer.php'); ?>
 </body>

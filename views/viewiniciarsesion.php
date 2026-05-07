@@ -21,14 +21,43 @@
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include ('controller/header.php'); ?>
-    
+    <?php if (isset($_GET['msg'])){ 
+        switch($_GET['msg']){
+            case 'modificado':
+    ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Espera',
+            text: 'Espere por favor',
+            timer: 4000,
+            showConfirmButton: false
+        });
+        </script>
+    <?php
+            break;
+
+            case 'eliminado':
+    ?>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Usuario incorrecto',
+            timer: 4000,
+            showConfirmButton: false
+        });
+        </script>
+    <?php 
+        break;
+    }} ?>
 
     <!-- Header Start -->
     <div class="container-fluid page-header">
