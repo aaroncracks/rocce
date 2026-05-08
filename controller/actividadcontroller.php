@@ -15,7 +15,7 @@ class actividad_controller{
 
     function mostraractividadclient(){
         $datos=$this->model->get_actividades();
-
+$total=$this->model->get_total();
         
         
         //Llamada a la vista
@@ -76,7 +76,20 @@ class actividad_controller{
     }
 
     function mod($id, $nombre, $descripcion, $habilitado, $lugar_id){
-        $datos=$this->model->mod_actividad($id, $nombre, $descripcion, $habilitado, $lugar_id);
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        } 
+        $datos=$this->model->mod_actividad($id, $nombre, $descripcion, $habilitado, $lugar_id, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewactividad&msg=modificado");

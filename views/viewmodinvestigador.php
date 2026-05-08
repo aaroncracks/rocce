@@ -49,16 +49,17 @@
             required="required" data-validation-required-message="Por favor escriba el nombre" />
         <p class="help-block text-danger"></p>
     </div>
+    <input type="hidden"
+       name="imagen_actual"
+       value="<?= $dato['imagen'] ?>">
     <div class="control-group">
-        <textarea class="form-control py-3 px-4" rows="5" name="correo" placeholder="correo"
-            required="required"
-            data-validation-required-message="Por favor escriba una correo"> <?php echo $dato["correo"]; ?></textarea>
+        <input type="text" class="form-control p-4" name="correo" placeholder="correo" <?php echo 'value='.$dato["correo"]; ?>
+            required="required" data-validation-required-message="Por favor escriba el correo" />
         <p class="help-block text-danger"></p>
     </div>
     <div class="control-group">
-        <textarea class="form-control py-3 px-4" rows="5" name="contraseña" placeholder="contraseña"
-            required="required"
-            data-validation-required-message="Por favor escriba una contraseña"> <?php echo $dato["contraseña"]; ?></textarea>
+        <input type="text" class="form-control p-4" name="contraseña" placeholder="contraseña" <?php echo 'value='.$dato["contraseña"]; ?>
+            required="required" data-validation-required-message="Por favor escriba el contraseña" />
         <p class="help-block text-danger"></p>
     </div>
     <div class="control-group">

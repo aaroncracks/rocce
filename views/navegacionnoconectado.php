@@ -7,25 +7,7 @@
                         <p>Bienvenido</p>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a class="text-primary pl-3" href="">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -47,7 +29,14 @@
                         <a href="index.php?accion=home" class="nav-item nav-link active">Home</a>
                         <a href="index.php?accion=about" class="nav-item nav-link">Sobre nosotros</a>
                         <a href="index.php?accion=mostrarlugarclient" class="nav-item nav-link">Lugar</a>
-                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link border-right">Actividades</a>
+                        <a href="index.php?accion=mostraractividadclient" class="nav-item nav-link ">Actividades</a>
+                        <div class="nav-item dropdown border-right">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Especies</a>
+                            <div class="dropdown-menu border-0 rounded-0 m-0">
+                                <a href="index.php?accion=viewanimalclient" class="dropdown-item">Animales</a>
+                                <a href="index.php?accion=viewplantaclient" class="dropdown-item">Plantas</a>
+                            </div>
+                        </div>
                         <a href="index.php?accion=mostrariniciarsesion" class="nav-item nav-link">Iniciar sesion</a>
                         <a href="index.php?accion=mostraralta" class="btn btn-secondary nav-item nav-link">Registrarte</a>
                     </div>

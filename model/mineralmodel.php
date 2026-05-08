@@ -63,11 +63,11 @@ class mineral_model{
         }
     }
 
-    public function mod_mineral($id, $nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id){
+    public function mod_mineral($id, $nombre, $formula, $clase, $sistema_cristalino, $habito, $lugar_id, $ruta){
 
         try{
             $Sentencia="UPDATE minerales ";
-            $Sentencia.="SET nombre='$nombre', formula='$formula', clase='$clase', sistema_cristalino='$sistema_cristalino', habito='$habito', lugar_id='$lugar_id' WHERE id='$id'";
+            $Sentencia.="SET nombre='$nombre', formula='$formula', clase='$clase', sistema_cristalino='$sistema_cristalino', habito='$habito', lugar_id='$lugar_id', imagen='$ruta' WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

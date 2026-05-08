@@ -23,7 +23,7 @@ class proyecto_controller{
     }
     function mostrarproyectoinv(){
         $datos=$this->model->get_proyectos2();
-
+        $total=$this->model->get_total();
         //Llamada a la vista
         require_once("views/viewmostrarproyectoinv.php");
 
@@ -53,16 +53,19 @@ class proyecto_controller{
     }
 
     function mod($id, $titulo, $autor, $justificacion){
+
         if ($_FILES['archivo']['error'] == 0) {
 
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
             $nombreArchivo = time() . "_" . $_FILES['archivo']['name'];
             $ruta = "proyectos/" . $nombreArchivo;
 
             move_uploaded_file($_FILES['archivo']['tmp_name'], $ruta);
 
-        } else {
-            $ruta = $_POST['archivo_actual'];
-        }
+        } 
         $datos=$this->model->mod_proyecto($id, $titulo, $autor, $justificacion, $ruta);
         
         //Llamada a la vista

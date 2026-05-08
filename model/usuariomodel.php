@@ -95,10 +95,10 @@ class usuario_model{
         }
     }
 
-    public function mod_usuario($id, $nombre, $correo, $Contraseña){
+    public function mod_usuario($id, $nombre, $correo, $Contraseña, $ruta){
         try{
             $Sentencia="UPDATE usuarios ";
-            $Sentencia.="SET nombre='$nombre', correo='$correo', contraseña='$Contraseña' WHERE id='$id'";
+            $Sentencia.="SET nombre='$nombre', correo='$correo', contraseña='$Contraseña', imagen='$ruta' WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);
         } catch(Exception $g){
             echo "Error"; /*E-Mail es Unique y debe tener un @*/

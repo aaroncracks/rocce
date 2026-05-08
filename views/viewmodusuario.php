@@ -51,6 +51,9 @@
                         required="required" data-validation-required-message="Por favor escriba el nombre" />
                     <p class="help-block text-danger"></p>
                 </div>
+                <input type="hidden"
+       name="imagen_actual"
+       value="<?= $dato['imagen'] ?>">
                 <div class="control-group">
                     <input type="email" class="form-control p-4" name="correo" placeholder="Tu correo" <?php echo 'value='.$dato["correo"]; ?>
                         required="required" data-validation-required-message="Por favor escriba el correo" />

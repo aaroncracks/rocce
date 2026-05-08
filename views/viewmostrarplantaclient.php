@@ -27,7 +27,7 @@
 </head>
 <body>
 <?php include ('controller/header.php'); ?>
-
+<?php $pag= $_GET["pag"] ?? 1; ?>
 <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
@@ -84,6 +84,14 @@
     <?php 
         break;
     }} ?>
+    <form class="row g-3 mt-5 mb-2 ml-5" method="POST" action="index.php?accion=viewplantaclient">
+        <div class="col-md-2">
+            <input type="text" name="buscar" class="form-control" placeholder="titulo">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" id="sendMessageButton">Buscar</button>
+        </div>
+    </form>
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="row">
@@ -102,12 +110,25 @@
                                         <a class="h5 text-decoration-none" href=""><?php echo $dato["nombre"]; ?></a>
                                     
                                     <p><?php echo $dato["nom_cientifico"]; ?></p>
-                                    <div class="border-top mt-4 pt-4">
-                                        <div class="d-flex justify-content-between">
+                                    <?php 
+                                                if($dato["temporada"]==1){
+
+                                            ?>
+                                                <span class="h5 text-decoration-none">De temporada</span>
+                                            <?php
+                                                }else{
+                                            ?>
+                                                <span class="h5 text-decoration-none">No de temporada</span>
+                                            <?php
+                                                }
+                                            ?>
+                                    
                                           <?php 
                                             if((int)$num_trab > 0){
                                                ?>
-                                               
+                                               <div class="border-top mt-4 pt-4">
+                                        
+                                                <div class="d-flex justify-content-between">
                                                 <select class="lugar" data-id="<?= $dato['especie_id'] ?>">
                                                     <option value="" selected disabled hidden>Elige lugar</option>
                                                     <?php 
@@ -123,13 +144,14 @@
                                                     <option value="1">En temporada</option>
                                                     <option value="0">No disponible</option>
                                                 </select>
+                                            </div>
                                             
+                                    </div>
                                             <?php
                                             }
                                           
                                           ?>
-                                        </div>
-                                    </div>
+                                        
                                     </div>
                                     
                                 </div>
@@ -137,7 +159,13 @@
                             </div>
                             
                     
-                <?php } ?>
+                <?php } 
+                    if(count($datos) == 0){
+                ?>
+                    <span class="h5 text-decoration-none text-danger">NO HAY PLANTAS</span>
+                <?php
+                    }
+                ?>
                 
                         
                     </div>
@@ -145,7 +173,16 @@
             </div>
         </div>
     </div>
-
+<?php if($pag<1){ ?>
+        <a href="index.php?accion=viewplantaclient&pag=<?= $pag - 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=viewplantaclient&pag=<?= 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+            <?php } ?>
+        <?php if($pag>$total){ ?>
+        <a href="index.php?accion=viewplantaclient&pag=<?= $pag + 1 ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=viewplantaclient&pag=<?= $total ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+            <?php } ?>
     <script>
     document.querySelectorAll(".lugar").forEach(select => {
 

@@ -459,8 +459,9 @@ require_once("controller/reseñacontroller.php");
             $esqueleto=$_POST["esqueleto"];
             $alimentacion=$_POST["alimentacion"];
             $lugar_id=$_POST["lugar_id"];
+            $temporada=$_POST["temporada"];
             $controller = new animal_controller();
-            $controller->mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id);
+            $controller->mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada);
             break;
         
         case 'altaanimal':
@@ -471,8 +472,9 @@ require_once("controller/reseñacontroller.php");
             $esqueleto=$_POST["esqueleto"];
             $alimentacion=$_POST["alimentacion"];
             $lugar_id=$_POST["lugar_id"];
+            $temporada=$_POST["temporada"];
             $controller = new animal_controller();
-            $controller->alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id);
+            $controller->alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada);
             break;
         
         case 'delanimal':

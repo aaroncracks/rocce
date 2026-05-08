@@ -62,7 +62,7 @@
 
 ?>
 <h2>MODIFICAR PROYECTO - <?php echo $dato["titulo"] ?></h2><br>
-<form <?php echo 'action="index.php?accion=modproyecto&id='.$dato["id"].'"'; ?>  method="post">
+<form <?php echo 'action="index.php?accion=modproyecto&id='.$dato["id"].'"'; ?>  method="post" enctype="multipart/form-data">
     <div class="control-group">
         <input type="text" class="form-control p-4" name="titulo" placeholder="titulo" <?php echo 'value='.$dato["titulo"]; ?>
             required="required" data-validation-required-message="Por favor escriba el titulo" />

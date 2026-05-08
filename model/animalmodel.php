@@ -36,7 +36,7 @@ class animal_model{
     
     public function get_animales(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM animales")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -51,7 +51,7 @@ class animal_model{
         inner join lugares on especies.lugar_id = lugares.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
-            $sql .= " WHERE nombre LIKE '$buscar%'";
+            $sql .= " WHERE especies.nombre LIKE '$buscar%'";
         }
         $sql .= " LIMIT $inicio, $porPagina;";
         $consulta=$this->db->query($sql);
@@ -62,7 +62,7 @@ class animal_model{
     }
     public function get_total(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM animales")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -80,11 +80,11 @@ class animal_model{
         return $this->animales;
     }
 
-    public function set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta){
+    public function set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta, $temporada){
 
         try{
-            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id) ";
-                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id')";
+            $Sentencia="INSERT especies (nombre, nom_cientifico, reproduccion, habitat, lugar_id, temporada) ";
+                $Sentencia.="VALUES ('$nombre', '$nombre_cientifico', '$reproduccion', '$habitat', '$lugar_id', '$temporada')";
                 $consulta=$this->db->query($Sentencia);
                 $Sentencia="INSERT animales (especie_id, esqueleto, alimentacion, imagen) ";
                 $Sentencia.="VALUES (LAST_INSERT_ID(), '$esqueleto', '$alimentacion', '$ruta')";
@@ -95,11 +95,11 @@ class animal_model{
         }
     }
 
-    public function mod_animal($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
+    public function mod_animal($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta, $temporada){
         
         try{
            $Sentencia="UPDATE especies ";
-                $Sentencia.="SET nombre='$nombre', nom_cientifico='$nombre_cientifico', reproduccion='$reproduccion', habitat='$habitat', lugar_id='$lugar_id' WHERE id='$id'";
+                $Sentencia.="SET nombre='$nombre', nom_cientifico='$nombre_cientifico', reproduccion='$reproduccion', habitat='$habitat', lugar_id='$lugar_id', imagen='$ruta', temporada='$temporada' WHERE id='$id'";
                 $consulta=$this->db->query($Sentencia);
 
                 $Sentencia="UPDATE animales ";

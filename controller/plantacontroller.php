@@ -27,6 +27,7 @@ class planta_controller{
         $datos=$this->model->get_plantas();
         $num_trab=$this->controller1->trabajadorid();
         $lugares = $this->controller->mostrardatos();
+        $total=$this->model->get_total();
         //Llamada a la vista
         require_once("views/viewmostrarplantaclient.php");
 
@@ -44,7 +45,20 @@ class planta_controller{
     }
 
     function mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada){
-        $datos=$this->model->mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada);
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }  
+        $datos=$this->model->mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada, $ruta, $temporada);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewplanta&msg=modificado");

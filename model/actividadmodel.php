@@ -10,7 +10,7 @@ class actividad_model{
     
     public function get_actividades(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM actividades")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -34,7 +34,7 @@ class actividad_model{
     }
     public function get_total(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM actividades")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -64,11 +64,11 @@ class actividad_model{
         }
     }
 
-    public function mod_actividad($id, $nombre, $descripcion, $habilitado, $lugar_id){
+    public function mod_actividad($id, $nombre, $descripcion, $habilitado, $lugar_id, $ruta){
 
         try{
             $Sentencia="UPDATE actividades ";
-            $Sentencia.="SET nombre='$nombre', descripcion='$descripcion', habilitado=$habilitado, lugar_id='$lugar_id' WHERE id='$id'";
+            $Sentencia.="SET nombre='$nombre', descripcion='$descripcion', habilitado=$habilitado, lugar_id='$lugar_id', imagen='$ruta' WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

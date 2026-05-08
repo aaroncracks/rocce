@@ -10,7 +10,7 @@ class proyecto_model{
     
     public function get_proyectos(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM proyectos")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -34,7 +34,7 @@ class proyecto_model{
     }
     public function get_total(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM proyectos")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);

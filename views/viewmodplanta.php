@@ -95,6 +95,9 @@
         <option value="0">No disponible</option>
 
     </select><br>
+    <input type="hidden"
+       name="imagen_actual"
+       value="<?= $dato['imagen'] ?>">
                     <label for="">Imagen</label>
                 <input type="file" name="imagen">
     <div class="text-center">

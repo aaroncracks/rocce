@@ -23,7 +23,7 @@ class lugar_controller{
 
     function mostrarlugarclient(){
         $datos=$this->model->get_lugares();
-
+$total=$this->model->get_total();
         //Llamada a la vista
         require_once("views/viewmostrarlugarclient.php");
     }
@@ -34,7 +34,20 @@ class lugar_controller{
     }
 
     function mod($id, $nombre, $descripcion){
-        $datos=$this->model->mod_lugar($id, $nombre, $descripcion);
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }  
+        $datos=$this->model->mod_lugar($id, $nombre, $descripcion, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewlugar&msg=modificado");

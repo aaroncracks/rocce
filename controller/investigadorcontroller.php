@@ -28,7 +28,20 @@ class investigador_controller{
     }
 
     function mod($id, $nombre, $correo, $contraseña, $especialidad){
-        $datos=$this->model->mod_investigador($id, $nombre, $correo, $contraseña, $especialidad);
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }  
+        $datos=$this->model->mod_investigador($id, $nombre, $correo, $contraseña, $especialidad, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewinvestigador&msg=modificado");

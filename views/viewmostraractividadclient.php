@@ -27,7 +27,7 @@
 <body>
 
     <?php include ('controller/header.php'); ?>
-
+<?php $pag= $_GET["pag"] ?? 1; ?>
 <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
@@ -40,6 +40,14 @@
             </div>
         </div>
     </div>
+    <form class="row g-3 mt-5 mb-2 ml-4" method="POST" action="index.php?accion=mostraractividadclient">
+        <div class="col-md-2">
+            <input type="text" name="buscar" class="form-control" placeholder="titulo">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" id="sendMessageButton">Buscar</button>
+        </div>
+    </form>
 <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="row">
@@ -80,12 +88,28 @@
                             </div>
                             
                     
-                <?php } ?>
+                <?php } 
+                    if(count($datos) == 0){
+                ?>
+                    <span class="h5 text-decoration-none text-danger">NO HAY ACTIVIDADES</span>
+                <?php
+                    }
+                ?>
                 
-                        
+                       
                     </div>
                 </div>
             </div>
+             <?php if($pag<1){ ?>
+        <a href="index.php?accion=mostraractividadclient&pag=<?= $pag - 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=mostraractividadclient&pag=<?= 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+            <?php } ?>
+        <?php if($pag>$total){ ?>
+        <a href="index.php?accion=mostraractividadclient&pag=<?= $pag + 1 ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=mostraractividadclient&pag=<?= $total ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+            <?php } ?>
         </div>
     </div>
             

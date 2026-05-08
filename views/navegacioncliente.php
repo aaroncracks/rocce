@@ -6,25 +6,7 @@
                         <a href="index.php?accion=viewusuarioun&id=<?php echo $_SESSION["usuario"]; ?>" class="nav-item nav-link">Usuario</a>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="text-primary px-3" href="">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a class="text-primary pl-3" href="">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -55,17 +37,10 @@
                             </div>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reseña</a>
-                            <div class="dropdown-menu border-0 rounded-0 m-0">
-                                <a href="index.php?accion=viewaltareseña" class="dropdown-item">Crear</a>
-                                <a href="index.php?accion=viewreseña" class="dropdown-item">Ver</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Especies</a>
                             <div class="dropdown-menu border-0 rounded-0 m-0">
-                                <a href="index.php?accion=viewanimalclient" class="nav-item nav-link border-right">Animales</a>
-                                <a href="index.php?accion=viewplantaclient" class="nav-item nav-link border-right">Plantas</a>
+                                <a href="index.php?accion=viewanimalclient" class="dropdown-item">Animales</a>
+                                <a href="index.php?accion=viewplantaclient" class="dropdown-item">Plantas</a>
                             </div>
                         </div>
                         <a href="index.php?accion=cerrarsesion" class="nav-item nav-link">Cerrar Sesion</a>

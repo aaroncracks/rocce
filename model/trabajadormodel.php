@@ -8,7 +8,7 @@ class trabajador_model{
         $this->trabajadores=array();
     }
     public function get_trabajadores2(){
-        $id = $_SESSION["usuario"];
+        $id = $_SESSION["usuario"] ?? 0;
         $consulta=$this->db->query("SELECT count(*) AS total From trabajadores WHERE usuario_id='$id';");
         $num_trab = $consulta->fetch_assoc();
         return (int)$num_trab["total"];
@@ -16,7 +16,7 @@ class trabajador_model{
     
     public function get_trabajadores1(){
         $id = $_GET["id"];
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, puesto, usuario_id, usuarios.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id
+        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, puesto, usuario_id, trabajadores.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id
         WHERE trabajadores.usuario_id='$id';");
         while($filas=$consulta->fetch_assoc()){
             $this->trabajadores[]=$filas;
@@ -35,7 +35,7 @@ class trabajador_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, correo, contraseña, puesto, usuario_id, usuarios.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id";
+        $sql = "SELECT id, nombre, correo, contraseña, puesto, usuario_id, trabajadores.imagen as imagen From trabajadores inner join usuarios on trabajadores.usuario_id = usuarios.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " AND nombre LIKE '$buscar%'";
@@ -73,7 +73,7 @@ class trabajador_model{
         }
     }
 
-    public function mod_trabajador($id, $nombre, $correo, $contraseña, $puesto){
+    public function mod_trabajador($id, $nombre, $correo, $contraseña, $puesto, $ruta){
         
         try{
            $Sentencia="UPDATE usuarios ";
@@ -81,7 +81,7 @@ class trabajador_model{
                 $consulta=$this->db->query($Sentencia);
 
                 $Sentencia="UPDATE trabajadores ";
-                $Sentencia.="SET puesto='$puesto' WHERE usuario_id='$id'";
+                $Sentencia.="SET puesto='$puesto', imagen='$ruta' WHERE usuario_id='$id'";
                 $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

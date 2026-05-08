@@ -10,7 +10,7 @@ class lugar_model{
     
     public function get_lugares(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM lugares")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -34,7 +34,7 @@ class lugar_model{
     }
     public function get_total(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM lugares")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -62,11 +62,11 @@ class lugar_model{
         }
     }
 
-    public function mod_lugar($id, $nombre, $descripcion){
+    public function mod_lugar($id, $nombre, $descripcion, $ruta){
 
         try{
             $Sentencia="UPDATE lugares ";
-            $Sentencia.="SET nombre='$nombre', descripcion='$descripcion' WHERE id='$id'";
+            $Sentencia.="SET nombre='$nombre', descripcion='$descripcion', imagen='$ruta' WHERE id='$id'";
             $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

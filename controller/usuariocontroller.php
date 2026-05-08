@@ -39,7 +39,7 @@ class usuario_controller{
             header("Refresh:1, url=index.php");
         }
         if($Sesion==0){
-            header("Refresh:1, url=index.php?accion=viewplanta&msg=eliminado");
+            header("Refresh:1, url=index.php?accion=mostrariniciarsesion&msg=eliminado");
         }
             
         if($Sesion==2){
@@ -112,8 +112,21 @@ class usuario_controller{
     }
 
     function mod($id, $nombre, $correo, $contraseña){
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }
         $model = new usuario_model();
-        $datos=$model->mod_usuario($id, $nombre, $correo, $contraseña);
+        $datos=$model->mod_usuario($id, $nombre, $correo, $contraseña, $ruta);
         
         //Llamada a la vista
         if($_SESSION["usuario"]=="Admin"){

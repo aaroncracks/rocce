@@ -19,7 +19,7 @@ class planta_model{
     }
     public function get_plantas(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM plantas")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -34,7 +34,7 @@ class planta_model{
         inner join lugares on especies.lugar_id = lugares.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
-            $sql .= " WHERE nombre LIKE '$buscar%'";
+            $sql .= " WHERE especies.nombre LIKE '$buscar%'";
         }
         $sql .= " LIMIT $inicio, $porPagina;";
         $consulta=$this->db->query($sql);
@@ -45,7 +45,7 @@ class planta_model{
     }
     public function get_total(){
         $pag = $_GET["pag"] ?? 1;
-        $porPagina = 5;
+        $porPagina = 6;
         $inicio = ($pag - 1) * $porPagina;
         $totalRegistros = $this->db->query("SELECT COUNT(*) AS total FROM plantas")->fetch_assoc()["total"];
         $totalPaginas = ceil($totalRegistros / $porPagina);
@@ -66,11 +66,11 @@ class planta_model{
         
     }
 
-    public function mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo){
+    public function mod_planta($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $ciclo, $tallo, $ruta, $temporada){
         
         try{
            $Sentencia="UPDATE especies ";
-                $Sentencia.="SET nombre='$nombre', nom_cientifico='$nombre_cientifico', reproduccion='$reproduccion', habitat='$habitat' WHERE id='$id'";
+                $Sentencia.="SET nombre='$nombre', nom_cientifico='$nombre_cientifico', reproduccion='$reproduccion', habitat='$habitat', imagen='$ruta', temporada='$temporada' WHERE id='$id'";
                 $consulta=$this->db->query($Sentencia);
 
                 $Sentencia="UPDATE plantas ";

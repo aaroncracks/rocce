@@ -55,6 +55,9 @@
             data-validation-required-message="Por favor escriba una descripcion"> <?php echo $dato["descripcion"]; ?></textarea>
         <p class="help-block text-danger"></p>
     </div>
+    <input type="hidden"
+       name="imagen_actual"
+       value="<?= $dato['imagen'] ?>">
     <label for="">Imagen</label>
                 <input type="file" name="imagen">
     <div class="text-center">

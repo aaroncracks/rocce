@@ -34,7 +34,21 @@ class trabajador_controller{
     }
 
     function mod($id, $nombre, $correo, $contraseña, $puesto){
-        $datos=$this->model->mod_trabajador($id, $nombre, $correo, $contraseña, $puesto);
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }  
+
+        $datos=$this->model->mod_trabajador($id, $nombre, $correo, $contraseña, $puesto, $ruta);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewtrabajador&msg=modificado");
@@ -48,8 +62,6 @@ class trabajador_controller{
 
             move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
 
-        } else {
-            $ruta = null;
         }
         $datos=$this->model->set_trabajadores($nombre, $correo, $contraseña, $puesto, $ruta);
         $correoModel = new correo_model();

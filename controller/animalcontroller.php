@@ -41,7 +41,9 @@ class animal_controller{
         $datos=$this->model->get_animales();
         $num_trab=$this->controller1->trabajadorid();
         $lugares = $this->controller->mostrardatos();
+        $total=$this->model->get_total();
         //Llamada a la vista
+        
         require_once("views/viewmostraranimalclient.php");
 
     }
@@ -52,8 +54,21 @@ class animal_controller{
         require_once("views/viewmodanimal.php");
     }
 
-    function mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
-        $datos=$this->model->mod_animal($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id);
+    function mod($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada){
+        $ruta = $_POST["imagen_actual"];
+        if ($_FILES['imagen']['error'] == 0) {
+
+            if(file_exists($ruta)){
+                unlink($ruta);
+            }
+        
+            $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
+            $ruta = "img/" . $nombreImagen;
+
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
+
+        }  
+        $datos=$this->model->mod_animal($id, $nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta, $temporada);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewanimal&msg=modificado");
@@ -65,7 +80,7 @@ class animal_controller{
         require_once("views/viewaltaanimales.php");
     }
 
-    function alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id){
+    function alta($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $temporada){
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
 
             $nombreImagen = time() . "_" . $_FILES['imagen']['name'];
@@ -76,7 +91,7 @@ class animal_controller{
         } else {
             $ruta = null;
         }
-        $datos=$this->model->set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta);
+        $datos=$this->model->set_animal($nombre, $nombre_cientifico, $reproduccion, $habitat, $esqueleto, $alimentacion, $lugar_id, $ruta, $temporada);
         
         //Llamada a la vista
         header("Refresh:1, url=index.php?accion=viewanimal&msg=creado");

@@ -10,7 +10,7 @@ class investigador_model{
     
     public function get_investigadores1(){
         $id = $_GET["id"];
-        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, especialidad, usuario_id From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id
+        $consulta=$this->db->query("SELECT id, nombre, correo, contraseña, especialidad, usuario_id, investigadores.imagen as imagen From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id
         WHERE investigadores.usuario_id='$id';");
         while($filas=$consulta->fetch_assoc()){
             $this->investigadores[]=$filas;
@@ -29,7 +29,7 @@ class investigador_model{
         if($pag < 1){
             $pag = 1;
         }
-        $sql = "SELECT id, nombre, correo, contraseña, especialidad, usuario_id, usuarios.imagen as imagen From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id";
+        $sql = "SELECT id, nombre, correo, contraseña, especialidad, usuario_id, investigadores.imagen as imagen From investigadores inner join usuarios on investigadores.usuario_id = usuarios.id";
         if (!empty($_POST["buscar"])) {
             $buscar = $_POST["buscar"];
             $sql .= " WHERE nombre LIKE '$buscar%'";
@@ -64,7 +64,7 @@ class investigador_model{
         }
     }
 
-    public function mod_investigador($id, $nombre, $correo, $contraseña, $especialidad){
+    public function mod_investigador($id, $nombre, $correo, $contraseña, $especialidad, $ruta){
         
         try{
            $Sentencia="UPDATE usuarios ";
@@ -72,7 +72,7 @@ class investigador_model{
                 $consulta=$this->db->query($Sentencia);
 
                 $Sentencia="UPDATE investigadores ";
-                $Sentencia.="SET especialidad='$especialidad' WHERE usuario_id='$id'";
+                $Sentencia.="SET especialidad='$especialidad', imagen='$ruta' WHERE usuario_id='$id'";
                 $consulta=$this->db->query($Sentencia);
             
         } catch(Exception $g){

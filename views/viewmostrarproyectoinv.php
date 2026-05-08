@@ -26,6 +26,7 @@
 </head>
 <body>
 
+<?php $pag= $_GET["pag"] ?? 1; ?>
     <?php include ('controller/header.php'); ?>
 <?php if (isset($_GET['msg'])){ 
         switch($_GET['msg']){
@@ -142,7 +143,16 @@
             </div>
         </div>
     </div>
- 
+ <?php if($pag<1){ ?>
+        <a href="index.php?accion=viewproyectoinv&pag=<?= $pag - 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=viewproyectoinv&pag=<?= 1 ?>" class="btn btn-primary w-40 left--1-m">Anterior</a>
+            <?php } ?>
+        <?php if($pag>$total){ ?>
+        <a href="index.php?accion=viewproyectoinv&pag=<?= $pag + 1 ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+        <?php }else{ ?>
+            <a href="index.php?accion=viewproyectoinv&pag=<?= $total ?>" class="btn btn-primary w-40 left--1-m">Despues</a>
+            <?php } ?>
     <?php include ('views/footer.php'); ?>
 </body>
 </html>
